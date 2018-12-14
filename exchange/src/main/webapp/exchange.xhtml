@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Welcome to the exchange</title>
+    </h:head>
+    <h:body>
+        <h1>Welcome to the exchange</h1>
+        <h3>Exchange Rule (currencies and rate)</h3>
+
+        
+        <h:form>
+            <h3>Select Currencies</h3>
+            <p>
+
+                <h:outputLabel for="newFromRate" value="From Rate: "/>
+                <h:selectOneMenu id="newFromRate" value="#{pageManager.newFromRate}">
+                        <f:selectItem itemLabel="Select..." />
+                        <f:selectItems value="#{pageManager.currs}" var="c"
+   			itemLabel="#{c}" itemValue="#{c}" />
+   		</h:selectOneMenu>
+
+                <h:outputLabel for="newToRate" value="   To Rate: "/>
+                <h:selectOneMenu id="newToRate" value="#{pageManager.newToRate}">
+                        <f:selectItem itemLabel="Select..." />
+                        <f:selectItems value="#{pageManager.currs}" var="c"
+   			itemLabel="#{c}" itemValue="#{c}" />
+   		</h:selectOneMenu>
+  
+            </p>
+            <p>
+                <h:commandButton value="Search" action="#{pageManager.findRate}"/>
+            </p>
+            
+            
+            <hr/>
+            
+                    <p>
+
+            <h:outputLabel for="currFromRate" rendered="#{pageManager.currentRate != null}"  value=" From "/>
+            <h:outputText id="currFromRate" value="#{pageManager.currentRate.firstCurr}"/>
+            
+            <h:outputLabel for="currToRate" rendered="#{pageManager.currentRate != null}"  value=" To "/>
+            <h:outputText id="currToRate" value="#{pageManager.currentRate.secondCurr}"/>
+            
+            <h:outputLabel for="currRate" rendered="#{pageManager.currentRate != null}"  value=": "/>
+            <h:outputText id="currRate" value="#{pageManager.currentRate.rate}"/>
+            
+            <h:outputText rendered="#{pageManager.currentRate == null}"  value=" No rate or currency selected."/>
+                  
+
+        </p>
+
+            
+            <h3>Enter Amount</h3>
+            <p>
+                <h:outputLabel for="newAmount" value="Amount to Change: "/>
+                <h:inputText id="newAmount" value="#{pageManager.newAmount}"/>
+                
+                <br/>
+                <br/>
+                <h:outputLabel for="amount" rendered="#{pageManager.amount != null}"  value=" Entered amount: "/>
+                <h:outputText id="amount" value="#{pageManager.amount}"/> 
+                <h:outputLabel for="currFromRate2" rendered="#{pageManager.amount != null}"  value=" "/>
+                <h:outputText id="currFromRate2" rendered="#{pageManager.amount != null}" value="#{pageManager.currentRate.firstCurr}"/>
+                <h:outputText rendered="#{pageManager.amount == null}"  value=" No amount."/>
+                
+                <h:outputLabel for="currResult" rendered="#{pageManager.result != null}"  value=" -- Result: "/>
+                <h:outputText id="currResult" value="#{pageManager.result}"/>
+                <h:outputLabel for="currToRate2" rendered="#{pageManager.amount != null}"  value=" "/>
+                <h:outputText id="currToRate2" rendered="#{pageManager.amount != null}" value=" #{pageManager.currentRate.secondCurr}"/>
+                <h:outputText rendered="#{pageManager.result == null}"  value=" No result."/>      
+            
+            
+            </p>
+            <p>
+                <h:commandButton value="Change" action="#{pageManager.changeCurrency}"/>
+            </p>
+            <hr/>
+            
+        </h:form>
+            
+    </h:body>
+</html>
+
